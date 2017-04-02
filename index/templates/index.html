@@ -47,7 +47,8 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="index.html">Главная</a>
+                        <li {% if bar == '/' %}class="active"{% endif %}><a href="/">Главная</a>
+                        <li {% if bar == 'all_game' %}class="active"{% endif %}><a href="/all_game/">Все игры</a>
 
                             <!--
                             <ul class="dropdown-menu">
@@ -78,212 +79,59 @@
 
 	<!--start wrapper-->
 	<section class="wrapper">
-		<section class="content blog">
+		<section class="content ">
 			<div class="container">
-				<div class="row">
-					<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
-						<div class="blog_medium">
+                <!-- table-->
+                <div class="row ">
+
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="dividerHeading">
+                            <h4><span>{% if bar == '/' %}Популярные{% else %}Все игры{% endif %}</span></h4>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+
+                        <table class="table table-striped table-hover">
+                            <thead>
+                            <tr>
+                                <th> </th>
+                                <th> </th>
+                                <th> </th>
+                                <th> </th>
+                                <th> </th>
+                                <th> </th>
+                            </tr>
+                            </thead>
+                            <tbody>
                             {% for product in products %}
-							    <article class="post">
-								<div class="post_date">
-									<span class="day">{{ product.Date }}</span>
-									<span class="month">{{ product.MonthNameShort }}</span>
-								</div>
-								<figure class="post_img">
-									<a href="#">
-										<img src="{{ product.OriginalAwayTeamLogo|default:'/static/Everest-Template/images/blog/blog_medium_1.png' }}" alt="blog post">
-									</a>
-								</figure>
-								<div class="post_content">
-									<div class="post_meta">
-										<h2>
-											<a href="#">{{ product.Title_0 }} VS {{ product.Title_1 }}</a>
-										</h2>
-										<div class="metaInfo">
-											<span><i class="fa fa-user"></i> By <a href="#">Louis</a> </span>
-											<span><i class="fa fa-comments"></i> <a href="#">0 Comments</a></span>
-										</div>
-									</div>
-                                    <div class="coefficient">
-                                        <div class="pic_one_value_0"></div>
-                                        <div class="info_value_coefficient">
-                                            <h1 style="text-align:center; font-size: 60px; ">{{ product.Value_0 }} - {{ product.Value_1 }}</h1>
-                                        </div>
-                                        <div class="pic_one_value_"></div>
-                                    </div>
+                                <tr style="font-size: 18px">
+                                    <td>
+                                        <span style="color:black"> {{ product.Date }} </span>
+                                        <b>{{ product.MonthNameShort }}</b>
+                                        <u> {{ product.Time }} </u>
+                                    </td>
+                                    <td>{{ product.Category }} - {{ product.Tournament }} </td>
+                                    <td>
+                                        <a href="{{ product.HomeTeamLogo|default:'#' }}" target="_blank">
+                                            <img style="height: 30px;" src="{{ product.HomeTeamLogo|default:'/static/Everest-Template/images/blog/blog_medium_1.png' }}" alt="blog post">
+                                        </a>
+                                        <span style="color:red">{{ product.Title_0 }}</span>
+                                        <span style="color:blue; font-size: 21px;">VS</span>
+                                        <span style="color:red">{{ product.Title_1 }}</span>
+                                        <a href="{{ product.OriginalAwayTeamLogo|default:'#' }}" target="_blank">
+										    <img style="height: 30px;" src="{{ product.OriginalAwayTeamLogo|default:'/static/Everest-Template/images/blog/blog_medium_1.png' }}" alt="blog post">
+                                        </a>
+                                    </td>
+                                    <td style="font-size: 21px;">{{ product.Value_0 }}</td>
 
-									<p style="text-align:center;">{{ product.DateOfMatchLocalized }}.</p>
-									<a class="btn btn-primary btn-lg btn-block" href="http://betting.gg11.bet/#/sport/match/{{ product.MatchID }}" style="font-size: 60px">+ {{ product.MarketsCount }}</a>
-
-								</div>
-							</article>
+                                    <td style="font-size: 21px;">{{ product.Value_1 }}</td>
+                                    <td><a class="btn btn-primary btn-sm btn-block" href="http://betting.gg11.bet/#/sport/match/{{ product.MatchID }}" >+ {{ product.MarketsCount }}</a></td>
+                                </tr>
                             {% endfor %}
-
-							<article class="post no_images">
-								<div class="post_date">
-									<span class="day">28</span>
-									<span class="month">Nov</span>
-								</div>
-								<div class="post_content">
-									<div class="post_meta">
-										<h2>
-											<a href="#">perferendis dolor asperio</a>
-										</h2>
-										<div class="metaInfo">
-											<span><i class="fa fa-user"></i> By <a href="#">Louis</a> </span>
-											<span><i class="fa fa-comments"></i> <a href="#">12 Comments</a></span>
-										</div>
-									</div>
-									<p>Lorem ipsum dolor sit amet, consectetur adip, sed do eiusmod tempor incididunt  ut aut reiciendise voluptat maiores alias consequaturs aut perferendis doloribus asperiores ut labore.</p>
-									<a class="btn btn-small btn-default" href="#">Read More</a>
-
-								</div>
-							</article>
-
-						</div>
-
-					</div>
-<!--Sidebar Widget-->
-					<div class="col-xs-12 col-md-4 col-lg-4 col-sm-4">
-						<div class="sidebar">
-							<div class="widget widget_search">
-								<div class="site-search-area">
-									<form method="get" id="site-searchform" action="#">
-										<div>
-											<input class="input-text" name="s" id="s" placeholder="Enter Search keywords..." type="text" />
-											<input id="searchsubmit" value="Search" type="submit" />
-										</div>
-									</form>
-								</div><!-- end site search -->
-							</div>
-
-							<div class="widget widget_categories">
-								<div class="widget_title">
-									<h4><span>Categories</span></h4>
-									</div>
-								<ul class="arrows_list list_style">
-									<li><a href="#"> Grapic Design (10)</a></li>
-									<li><a href="#"> Web Design & Development (25)</a></li>
-									<li><a href="#"> Photography (29)</a></li>
-									<li><a href="#"> Custom Illustrations (19)</a></li>
-									<li><a href="#"> Wordpress Themes(38)</a></li>
-									<li><a href="#"> Videography (33)</a></li>
-								</ul>
-							</div>
-
-							<div class="widget widget_about">
-								<div class="widget_title">
-									<h4><span>Basic Text Widget</span></h4>
-									</div>
-								<p>Lorem ipsum dolor sit amet, consectetur adip, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-							</div>
-
-
-                            <div class="Everest-tab sidebar-tab">
-                                <ul  class="nav nav-tabs">
-                                    <li class="active"><a href="#Popular" data-toggle="tab">Popular</a></li>
-                                    <li class=""><a href="#Recent" data-toggle="tab">Recent</a></li>
-                                    <li class="last-tab"><a href="#Comment" data-toggle="tab"><i class="fa fa-comments-o"></i></a></li>
-                                </ul>
-
-                                <div class="tab-content clearfix">
-                                    <div class="tab-pane fade active in" id="Popular">
-                                        <ul class="recent_tab_list">
-                                            <li>
-                                                <span><a href="#"><img src="images/content/recent_1.png" alt="" /></a></span>
-                                                <a href="#">Publishing packag esanse web page editos</a>
-                                                <i>October 09, 2015</i>
-                                            </li>
-                                            <li>
-                                                <span><a href="#"><img src="images/content/recent_2.png" alt="" /></a></span>
-                                                <a href="#">Sublishing packag esanse web page editos</a>
-                                                <i>October 08, 2015</i>
-                                            </li>
-                                            <li class="last-tab">
-                                                <span><a href="#"><img src="images/content/recent_3.png" alt="" /></a></span>
-                                                <a href="#">Mublishing packag esanse web page editos</a>
-                                                <i>October 07, 2015</i>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="tab-pane fade" id="Recent">
-                                        <ul class="recent_tab_list">
-                                            <li>
-                                                <span><a href="#"><img src="images/content/recent_4.png" alt="" /></a></span>
-                                                <a href="#">Various versions has evolved over the years</a>
-                                                <i>October 18, 2015</i>
-                                            </li>
-                                            <li>
-                                                <span><a href="#"><img src="images/content/recent_5.png" alt="" /></a></span>
-                                                <a href="#">Rarious versions has evolve over the years</a>
-                                                <i>October 17, 2015</i>
-                                            </li>
-                                            <li class="last-tab">
-                                                <span><a href="#"><img src="images/content/recent_6.png" alt="" /></a></span>
-                                                <a href="#">Marious versions has evolven over the years</a>
-                                                <i>October 16, 2015</i>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="tab-pane fade" id="Comment">
-                                        <ul class="comments">
-                                            <li class="comments_list clearfix">
-                                                <a class="post-thumbnail" href="#"><img width="60" height="60" src="images/content/recent_3.png" alt="#"></a>
-                                                <p><strong><a href="#">Prambose</a> <i>says: </i> </strong> Morbi augue velit, tempus mattis dignissim nec, porta sed risus. Donec eget magna eu lorem tristique pellentesque eget eu dui. Fusce lacinia tempor malesuada.</p>
-                                            </li>
-                                            <li class="comments_list clearfix">
-                                                <a class="post-thumbnail" href="#"><img width="60" height="60" src="images/content/recent_1.png" alt="#"></a>
-                                                <p><strong><a href="#">Makaroni</a> <i>says: </i> </strong> Tempus mattis dignissim nec, porta sed risus. Donec eget magna eu lorem tristique pellentesque eget eu dui. Fusce lacinia tempor malesuada.</p>
-                                            </li>
-                                            <li class="comments_list clearfix">
-                                                <a class="post-thumbnail" href="#"><img width="60" height="60" src="images/content/recent_2.png" alt="#"></a>
-                                                <p><strong><a href="#">Prambanan</a> <i>says: </i> </strong> Donec convallis, metus nec tempus aliquet, nunc metus adipiscing leo, a lobortis nisi dui ut odio. Nullam ultrices, eros accumsan vulputate faucibus, turpis tortor.</p>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-
-							<div class="widget widget_tags">
-								<div class="widget_title">
-									<h4><span>Tags Widget</span></h4>
-								</div>
-								<ul class="tags">
-									<li><a href="#"><b>business</b></a></li>
-									<li><a href="#">corporate</a></li>
-									<li><a href="#">css3</a></li>
-									<li><a href="#"><b>html5</b></a></li>
-									<li><a href="#">javascript</a></li>
-									<li><a href="#"><b>jquery</b></a></li>
-									<li><a href="#">multipurpose</a></li>
-									<li><a href="#"><b>mysql</b></a></li>
-									<li><a href="#">portfolio</a></li>
-									<li><a href="#">premium</a></li>
-									<li><a href="#">responsive</a></li>
-									<li><a href="#"><b>theme</b></a></li>
-									<li><a href="#"><b>jQuery Rain</b></a></li>
-								</ul>
-							</div>
-
-							<div class="widget widget_archives">
-								<div class="widget_title">
-									<h4><span>Archives</span></h4>
-								</div>
-								<ul class="archives_list list_style">
-									<li><a href="#"> November 2015</a></li>
-									<li><a href="#"> October 2015</a></li>
-									<li><a href="#"> September 2015</a></li>
-									<li><a href="#"> August 2015</a></li>
-									<li><a href="#"> July 2015</a></li>
-									<li><a href="#"> June 2015</a></li>
-									<li><a href="#"> May 2015</a></li>
-								</ul>
-							</div>
-
-
-						</div>
-					</div>
-				</div><!--/.row-->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
 			</div> <!--/.container-->
 		</section>
 	</section>
